@@ -1,0 +1,61 @@
+version: '2'
+services:
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: npm run start:dev auth
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+      - postgres
+      - rabbitmq
+    volumes:
+      - .:/usr/src/apps
+      - /usr/src/apps/node_modules
+    ports:
+      - '3000:3000'
+
+  task:
+    build:
+      context: .
+      dockerfile: ./apps/task/Dockerfile
+      target: development
+    command: npm run start:dev task
+    env_file:
+      - ./.env
+    depends_on:
+      - auth
+      - redis
+      - postgres
+      - rabbitmq
+    volumes:
+      - .:/usr/src/apps
+      - /usr/src/apps/node_modules
+    ports:
+      - '3001:3001'
+
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - '5672:5672'
+
+  postgres:
+    image: postgres
+    environment:
+      - DB_HOST=komas500-db.cjg55jkdibbu.us-east-1.rds.amazonaws.com
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASS=Ogwuemmanuel1234,
+      - DB_NAME=komas
+      - DB_DIALET=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+volumes:
+  postgres_data:
+    driver: local
