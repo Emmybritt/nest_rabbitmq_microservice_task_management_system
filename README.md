@@ -1,73 +1,92 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Task Management System Backend - NestJS Developer Assessment
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Table of Contents
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- [Objective](#objective)
+- [Project Overview](#project-overview)
+  - [Microservices](#microservices)
+  - [RabbitMQ](#rabbitmq)
+  - [Distributed Caching (Redis)](#distributed-caching-redis)
+  - [Core Functionality](#core-functionality)
+  - [Relational Database (Postgres) & ORM](#relational-database-postgres--orm)
+  - [Event-Driven Architecture](#event-driven-architecture)
+  - [Clean Architecture & OOP](#clean-architecture--oop)
+  - [Type-Safe Code](#type-safe-code)
+  - [Error Handling](#error-handling)
+- [Bonus](#bonus)
+- [Submission](#submission)
+- [Evaluation Criteria](#evaluation-criteria)
 
-## Description
+## Objective
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The objective of this assessment is to build a Task Management System backend using NestJS. The primary goal is to demonstrate your expertise in various key areas, including microservices, RabbitMQ, distributed caching, relational databases, event-driven architecture, object-oriented programming (OOP), type-safe code, error handling, Clean Architecture, and Domain-Driven Design (DDD).
 
-## Installation
+## Project Overview
 
-```bash
-$ yarn install
-```
+### Microservices
 
-## Running the app
+1. **User Service:** This service manages user data. Keep this service simple; there's no need for complexity here.
 
-```bash
-# development
-$ yarn run start
+2. **Task Service:** The Task Service manages projects, tasks, deadlines, and notifications. Apply DDD principles to this service to structure it effectively.
 
-# watch mode
-$ yarn run start:dev
+### RabbitMQ
 
-# production mode
-$ yarn run start:prod
-```
+Implement inter-service communication using a message queue:
 
-## Test
+- Tasks and user updates should be communicated between services as domain events.
 
-```bash
-# unit tests
-$ yarn run test
+### Distributed Caching (Redis)
 
-# e2e tests
-$ yarn run test:e2e
+Cache frequently accessed tasks and user profiles. Consider which elements of the domain are frequently accessed and would benefit from caching.
 
-# test coverage
-$ yarn run test:cov
-```
+### Core Functionality
 
-## Support
+- Users should be able to set up projects and assign tasks to other users.
+- Users should receive notifications when tasks are assigned to them.
+- Users should be notified when tasks are due.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Relational Database (Postgres) & ORM
 
-## Stay in touch
+- Design a normalized database schema based on the domain models.
+- You are free to use TypeORM, Prisma, or any other ORM of your choice.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Event-Driven Architecture
 
-## License
+Implement domain events that are triggered and handled. You can decide which events you consider important for your application.
 
-Nest is [MIT licensed](LICENSE).
+### Clean Architecture & OOP
+
+Structure your application following the principles of Clean Architecture. Embrace object-oriented principles throughout the design.
+
+### Type-Safe Code
+
+Implement strong typing across the application, ensuring that domain rules are enforced through type constraints.
+
+### Error Handling
+
+Implement error handling based on the domain's possible inconsistencies and violations.
+
+## Bonus
+
+As a bonus, consider:
+
+- Applying a DDD approach, with clear aggregates, entities, and value objects.
+- Implementing pagination for tasks listing.
+
+## Submission
+
+Please submit your code repository link using the following form: [Submission Form](https://forms.gle/beAmC8jeLGJA1qQRA)
+
+Include a README file in your repository that provides detailed information about your architectural decisions, especially concerning DDD and Clean Architecture. Additionally, include instructions on setting up and running your project.
+
+## Evaluation Criteria
+
+Your assessment will be evaluated based on the following criteria:
+
+- Adherence to Clean Architecture and DDD principles.
+- Code quality, modularity, and readability.
+- Proper use of the mentioned technologies.
+- Effective domain modeling.
+- Robust error handling.
+
+Good luck with your assessment! If you have any questions, feel free to reach out.
