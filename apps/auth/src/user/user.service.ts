@@ -1,26 +1,43 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Inject, Injectable } from '@nestjs/common';
+import { User } from './entities/user.entity';
+import { CreateUser, UpdateUser } from './interfaces/user.interface';
+import { RmqService } from '@app/rmq';
 
 @Injectable()
 export class UserService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(
+    @Inject('USER_REPOSITORY')
+    private userRepository: typeof User,
+    private mqService: RmqService,
+  ) {}
+  create(createUserDto: CreateUser) {
+    return this.userRepository.create(createUserDto);
   }
 
   findAll() {
-    return `This action returns all user`;
+    return this.userRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string) {
+    return this.userRepository.findOne<User>({ where: { id } });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async findOneByEmail(email: string): Promise<User> {
+    return await this.userRepository.findOne<User>({ where: { email } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  update(id: string, updateUserDto: UpdateUser) {
+    return this.userRepository.update<User>(
+      { ...updateUserDto },
+      { where: { id } },
+    );
+  }
+
+  remove(id: string) {
+    return this.userRepository.destroy<User>({ where: { id } });
+  }
+
+  async getUserById(id: string): Promise<User> {
+    return this.userRepository.findOne<User>({ where: { id } });
   }
 }

@@ -4,7 +4,7 @@ export interface UserInterface {
   email: string;
   password: string;
   phone_no: string;
-  profile_photo: string;
+  profile_photo?: string;
   createdAt: Date;
   updatedAt: Date;
 }

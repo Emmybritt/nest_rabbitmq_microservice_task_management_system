@@ -2,12 +2,12 @@ version: '2'
 services:
   auth:
     build:
-      context: .
+      context: ./
       dockerfile: ./apps/auth/Dockerfile
       target: development
     command: npm run start:dev auth
     env_file:
-      - ./.env
+      - .env
     depends_on:
       - redis
       - postgres
@@ -38,19 +38,19 @@ services:
       - '3001:3001'
 
   rabbitmq:
-    image: rabbitmq
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
     ports:
       - '5672:5672'
+      - '15672:15672'
+    env_file:
+      - .env
 
   postgres:
     image: postgres
-    environment:
-      - DB_HOST=komas500-db.cjg55jkdibbu.us-east-1.rds.amazonaws.com
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASS=Ogwuemmanuel1234,
-      - DB_NAME=komas
-      - DB_DIALET=postgres
+    env_file:
+      - ./.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -62,12 +62,25 @@ services:
       - '6379:6379'
     command: redis-server --save 20 1 --loglevel warning
     networks:
-      - univacity_net
+      - task_net
     volumes:
       - redis_data:/data
+
+  postgres_admin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    ports:
+      - '15432:80'
 
 volumes:
   postgres_data:
     driver: local
   redis_data:
     driver: local
+
+networks:
+  task_net:
+    driver: bridge

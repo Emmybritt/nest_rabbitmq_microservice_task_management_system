@@ -2,6 +2,8 @@ import { Sequelize } from 'sequelize-typescript';
 import { databaseConfig } from './database.config';
 import { IDatabaseConfigAttributes } from './interfaces/dbConfig.interface';
 import { DEVELOPMENT, PRODUCTION, TEST } from './db.constants';
+import { User } from 'apps/auth/src/user/entities/user.entity';
+import { Task } from 'apps/task/src/entities/task.entity';
 
 export const databaseProviders = [
   {
@@ -24,19 +26,19 @@ export const databaseProviders = [
 
       const sequelize = new Sequelize({
         dialect: 'postgres',
-        host: config.host,
-        port: Number(config.port),
-        username: config.username,
-        password: config.password,
-        database: config.database,
-        dialectOptions: {
-          ssl: {
-            require: true,
-            rejectUnauthorized: false,
-          },
-        },
+        host: 'postgres',
+        port: 5432,
+        username: 'postgres',
+        password: 'pass',
+        database: 'task_management',
+        // dialectOptions: {
+        //   ssl: {
+        //     require: false,
+        //     rejectUnauthorized: false,
+        //   },
+        // },
       });
-      sequelize.addModels([]);
+      sequelize.addModels([User, Task]);
       await sequelize.sync();
       return sequelize;
     },
